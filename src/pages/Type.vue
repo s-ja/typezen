@@ -2,7 +2,7 @@
     <div>
         <div class="absolute-center bg-cusgrey" style="width: 700px">
             <template v-for="(chunk, idx) in chunkList" :key="idx">
-                <ChunkBlock :chunk="chunk"></ChunkBlock>
+                <ChunkBlock :chunk="chunk" v-if="checkRenderRange(idx)"></ChunkBlock>
             </template>
         </div>
     </div>
@@ -21,11 +21,10 @@ export default {
         ChunkBlock,
     },
     setup() {
+        // 타이핑 할 문자 chunk 단위로 분리
         const content = ref(TextFile.text);
         const paragraphList = ref([]);
-        // _.split(textFile.value, '.')
         const chunkList = ref([]);
-        // _.chunk(paragraphList.value[0], 50)
 
         const makeParagraphList = function (content) {
             paragraphList.value = _.split(content, '\n');
@@ -44,6 +43,13 @@ export default {
             chunkList.value.push(chunk.substr(1));
         };
 
+        // focus 된 chunk
+        const focusingIndex = ref(0);
+
+        const checkRenderRange = function (idx) {
+            return Math.abs(focusingIndex.value - idx) < 5 ? true : false;
+        };
+
         onMounted(() => {
             makeParagraphList(content.value);
             paragraphList.value.forEach((paragraph) => {
@@ -54,6 +60,9 @@ export default {
 
         return {
             chunkList,
+
+            focusingIndex,
+            checkRenderRange,
         };
     },
 };
