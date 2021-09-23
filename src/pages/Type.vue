@@ -6,6 +6,7 @@
             </template>
         </div>
     </div>
+    <div style="height: 50px; background: linear-gradient(#333437, black, #333437)">gradation</div>
 </template>
 <script>
 import { ref, onMounted } from 'vue';
@@ -55,7 +56,6 @@ export default {
             paragraphList.value.forEach((paragraph) => {
                 makeChunkList(paragraph);
             });
-            // makeChunkList('가나다 라마바 사아자');
         });
 
         return {
