@@ -1,7 +1,8 @@
 <template>
     <q-layout view="hHh lpR fFf">
+        <q-resize-observer @resize="handleResize"></q-resize-observer>
         <q-page-container>
-            <div class="fixed-top-left" style="top: 0px; left: 20px; height: 5rem; z-index: top">
+            <div class="fixed-top-left" style="top: 0px; left: 20px; height: 5rem">
                 <img src="assets/logo.png" style="height: 5rem" />
             </div>
             <div>
@@ -15,13 +16,21 @@
 </template>
 
 <script>
+import { setPageSize } from 'src/store/comm/mutations';
 import { defineComponent, ref } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
     name: 'MainLayout',
     setup() {
+        const $store = useStore();
+
         const leftDrawerOpen = ref(false);
         const rightDrawerOpen = ref(false);
+
+        const handleResize = function (size) {
+            $store.commit('comm/setPageSize', size);
+        };
 
         return {
             leftDrawerOpen,
@@ -33,6 +42,8 @@ export default defineComponent({
             toggleRightDrawer() {
                 rightDrawerOpen.value = !rightDrawerOpen.value;
             },
+
+            handleResize,
         };
     },
 });
