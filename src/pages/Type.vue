@@ -1,12 +1,16 @@
 <template>
-    <div style="width: 100%; height: 100%">
-        <div class="absolute-center bg-cusgrey" v-if="checkLeastSize" style="width: 100%; height: 100%">
-            <template v-for="(chunk, idx) in chunkList" :key="idx">
-                <ChunkBlock :chunk="chunk" v-if="checkRenderRange(idx)"></ChunkBlock>
-            </template>
+    <div class="fixed-center" style="width: 100%; height: 60px; background: linear-gradient(#333437, 35%, black, 65%, #333437)"></div>
+    <div class="row justify-center" style="width: 100%; height: 100%">
+        <div class="bg-cusgrey" v-if="checkLeastSize">
+            <div style="width: 700px">
+                <template v-for="(chunk, idx) in chunkList" :key="idx">
+                    <div class="absolute" v-if="checkRenderRange(idx)" :style="{ top: focusingTop + (idx - focusingIndex) * 48 + 'px' }">
+                        <ChunkBlock :chunk="chunk" :isFocused="idx === focusingIndex" @inputEnd="focusNextLine"></ChunkBlock>
+                    </div>
+                </template>
+            </div>
         </div>
         <div v-else>화면이 너무 작습니다.</div>
-        <div style="height: 50px; background: linear-gradient(#333437, black, #333437)">gradation</div>
     </div>
 </template>
 <script>
@@ -39,7 +43,7 @@ export default {
             let wordList = _.split(paragraph, ' ');
             let chunk = '';
             wordList.forEach((word) => {
-                if (chunk.length + word.length + 4 > 60) {
+                if (chunk.length + word.length > 52) {
                     chunkList.value.push(chunk.substr(1));
                     chunk = '';
                 }
@@ -52,15 +56,25 @@ export default {
         const pageSize = computed(() => $store.getters['comm/pageSize']);
         const checkLeastSize = computed({
             get: () => {
-                return pageSize.value.width > 1200 && pageSize.value.height > 200;
+                return pageSize.value.width > 740 && pageSize.value.height > 200;
             },
         });
 
         // focus 된 chunk
         const focusingIndex = ref(0);
+        const focusingTop = computed({
+            get: () => pageSize.value.height / 2 - 40,
+        });
+        // const chunkBlockTop = computed({
+        //     get: (idx) => ,
+        // });
+        const focusNextLine = function () {
+            console.log('receive');
+            focusingIndex.value += 1;
+        };
 
         const checkRenderRange = function (idx) {
-            return Math.abs(focusingIndex.value - idx) < 5 ? true : false;
+            return Math.abs(focusingIndex.value - idx) < 8 ? true : false;
         };
 
         onMounted(() => {
@@ -76,6 +90,9 @@ export default {
             checkLeastSize,
 
             focusingIndex,
+            focusingTop,
+            focusNextLine,
+
             checkRenderRange,
         };
     },

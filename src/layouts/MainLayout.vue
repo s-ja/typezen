@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import { setPageSize } from 'src/store/comm/mutations';
 import { defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
 
