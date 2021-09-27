@@ -69,7 +69,6 @@ export default {
         //     get: (idx) => ,
         // });
         const focusNextLine = function () {
-            console.log('receive');
             focusingIndex.value += 1;
         };
 

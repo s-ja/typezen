@@ -1,5 +1,5 @@
 <template>
-    <q-layout view="hHh lpR fFf">
+    <q-layout view="hHh lpR fFf" style="overflow: hidden">
         <q-resize-observer @resize="handleResize"></q-resize-observer>
         <q-page-container>
             <div class="fixed-top-left" style="top: 0px; left: 20px; height: 5rem">

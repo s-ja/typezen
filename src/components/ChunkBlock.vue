@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 48px">
+    <div style="height: 48px" :style="{ opacity: isFocused ? 1 : 0.5, pointerEvents: isFocused ? 'auto' : 'none' }">
         <div class="q-my-sm">
             <div>
                 <template v-for="(ch, idx) in chunk" :key="idx">
@@ -38,7 +38,6 @@ export default {
 
         const handleKeydown = function (event) {
             if (event.keyCode === 13) {
-                console.log('press');
                 emit('inputEnd');
             }
         };
