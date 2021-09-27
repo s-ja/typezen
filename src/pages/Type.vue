@@ -1,6 +1,6 @@
 <template>
     <div class="fixed-center" style="width: 100%; height: 60px; background: linear-gradient(#333437, 35%, black, 65%, #333437)"></div>
-    <div class="row justify-center" style="width: 100%; height: 100%">
+    <div class="row justify-center" ref="contentBlock" tabindex="0" @keydown.self="handleKeydown" :style="{ width: pageSize.width + 'px', height: pageSize.height + 'px' }">
         <div class="bg-cusgrey" v-if="checkLeastSize">
             <div style="width: 700px">
                 <template v-for="(chunk, idx) in chunkList" :key="idx">
@@ -61,19 +61,26 @@ export default {
         });
 
         // focus 된 chunk
-        const focusingIndex = ref(0);
+        const focusingIndex = ref(-1);
+        const focusNextLine = function () {
+            if (focusingIndex.value >= chunkList.value.length) alert('end');
+            else focusingIndex.value += 1;
+        };
+
         const focusingTop = computed({
             get: () => pageSize.value.height / 2 - 40,
         });
-        // const chunkBlockTop = computed({
-        //     get: (idx) => ,
-        // });
-        const focusNextLine = function () {
-            focusingIndex.value += 1;
+
+        const contentBlock = ref(null);
+        const handleKeydown = function (event) {
+            console.log(event);
+            if (event.keyCode === 13 || event.keyCode === 9) {
+                focusNextLine();
+            }
         };
 
         const checkRenderRange = function (idx) {
-            return Math.abs(focusingIndex.value - idx) < 8 ? true : false;
+            return Math.abs(focusingIndex.value - idx) < pageSize.value.height / (48 * 2) ? true : false;
         };
 
         onMounted(() => {
@@ -81,16 +88,21 @@ export default {
             paragraphList.value.forEach((paragraph) => {
                 makeChunkList(paragraph);
             });
+            contentBlock.value.focus();
         });
 
         return {
             chunkList,
 
+            pageSize,
             checkLeastSize,
 
             focusingIndex,
-            focusingTop,
             focusNextLine,
+            focusingTop,
+
+            contentBlock,
+            handleKeydown,
 
             checkRenderRange,
         };
