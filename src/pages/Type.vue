@@ -73,11 +73,15 @@ export default {
 
         const contentBlock = ref(null);
         const handleKeydown = function (event) {
-            console.log(event);
             if (event.keyCode === 13 || event.keyCode === 9) {
                 focusNextLine();
             }
         };
+
+        // 결과값 계산
+        const typoCnt = ref(0);
+        const letterCnt = ref(0);
+        const typingTimer = ref({});
 
         const checkRenderRange = function (idx) {
             return Math.abs(focusingIndex.value - idx) < pageSize.value.height / (48 * 2) ? true : false;
