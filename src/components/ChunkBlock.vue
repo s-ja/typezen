@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 48px">
+    <div style="height: 48px" :style="{ opacity: isFocused ? 1 : 0.5, pointerEvents: isFocused ? 'auto' : 'none' }">
         <div class="q-my-sm">
             <div>
                 <template v-for="(ch, idx) in chunk" :key="idx">
@@ -37,17 +37,28 @@ export default {
         });
 
         const handleKeydown = function (event) {
-            if (event.keyCode === 13) {
-                console.log('press');
+            if (event.keyCode === 13 || event.keyCode === 9) {
                 emit('inputEnd');
+                event.preventDefault();
             }
         };
 
         const textbox = ref(null);
+        const typoCnt = ref(0);
+        const countWrong = function () {
+            typoCnt.value = props.chunk.length - usrInput.value.length;
+            for (let i = 0; i < usrInput.value.length; i++) {
+                if (props.chunk[i] !== usrInput.value[i]) typoCnt.value += 1;
+            }
+            console.log(typoCnt.value);
+        };
         watch(
             () => props.isFocused,
             (isFocused) => {
                 if (isFocused) textbox.value.focus();
+                if (!isFocused) {
+                    countWrong();
+                }
             }
         );
 
