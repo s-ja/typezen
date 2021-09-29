@@ -1,6 +1,6 @@
 <template>
     <div class="fixed-center" style="width: 100%; height: 60px; background: linear-gradient(#333437, 35%, black, 65%, #333437)"></div>
-    <div class="row justify-center" ref="contentBlock" tabindex="0" @keydown.self="handleKeydown" :style="{ width: pageSize.width + 'px', height: pageSize.height + 'px' }">
+    <div class="row justify-center" ref="contentBlock" tabindex="0" @keydown.self="handleKeydown">
         <div class="bg-cusgrey" v-if="checkLeastSize">
             <div style="width: 700px">
                 <template v-for="(chunk, idx) in chunkList" :key="idx">

@@ -44,10 +44,21 @@ export default {
         };
 
         const textbox = ref(null);
+        const typoCnt = ref(0);
+        const countWrong = function () {
+            typoCnt.value = props.chunk.length - textbox.value.length;
+            for (let i = 0; i < textbox.value.length; i++) {
+                if (props.chunk[i] !== textbox.value[i]) typoCnt.value += 1;
+            }
+            console.log(typoCnt.value);
+        };
         watch(
             () => props.isFocused,
             (isFocused) => {
                 if (isFocused) textbox.value.focus();
+                if (!isFocused) {
+                    countWrong();
+                }
             }
         );
 
