@@ -18,7 +18,7 @@ export default defineComponent({
         const $router = useRouter();
 
         const handleClickType = function () {
-            $router.push('/write');
+            $router.push('/type');
         };
 
         return {
