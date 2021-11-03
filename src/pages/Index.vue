@@ -3,7 +3,10 @@
         <!-- <img alt="Quasar logo" src="~assets/quasar-logo-vertical.svg" style="width: 200px; height: 200px" /> -->
         <div>
             <div class="menu-select" @click="handleClickType">Type</div>
-            <div class="menu-select">Upload</div>
+            <div class="menu-select" type="file" accept="text/*">
+                <label for="cus-input-file">Upload</label>
+                <input id="cus-input-file" type="file" accept="text/*" v-show="false" />
+            </div>
         </div>
     </q-page>
 </template>
@@ -20,6 +23,12 @@ export default defineComponent({
         const handleClickType = function () {
             $router.push('/type');
         };
+
+        // const
+
+        // const handleClickUpload = function() {
+
+        // }
 
         return {
             handleClickType,
