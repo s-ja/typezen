@@ -3,7 +3,7 @@
         <q-resize-observer @resize="handleResize"></q-resize-observer>
         <q-page-container>
             <div class="fixed-top-left" style="top: 0px; left: 20px; height: 5rem">
-                <img src="assets/logo.png" style="height: 5rem" />
+                <img src="assets/logo.png" style="height: 5rem" @click="handleClickLogo" />
             </div>
             <div>
                 <router-view />
@@ -18,17 +18,23 @@
 <script>
 import { defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
     name: 'MainLayout',
     setup() {
         const $store = useStore();
+        const $router = useRouter();
 
         const leftDrawerOpen = ref(false);
         const rightDrawerOpen = ref(false);
 
         const handleResize = function (size) {
             $store.commit('comm/setPageSize', size);
+        };
+
+        const handleClickLogo = function () {
+            $router.replace('/');
         };
 
         return {
@@ -43,6 +49,7 @@ export default defineComponent({
             },
 
             handleResize,
+            handleClickLogo,
         };
     },
 });
