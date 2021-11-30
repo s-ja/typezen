@@ -16,11 +16,16 @@
     </q-dialog>
 </template>
 <script>
+import { ref } from 'vue';
+
 export default {
     props: ['isInput'],
-    emits: ['close'],
+    emits: ['closeModal'],
     setup() {
-        return;
+        // const isInput = ref(true);
+        // return {
+        //     isInput,
+        // };
     },
 };
 </script>
