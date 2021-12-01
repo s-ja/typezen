@@ -12,7 +12,7 @@
                 <q-btn size="26px" round flat> <img src="assets/upload.png" style="height: 40px" /></q-btn>
             </q-page-sticky>
         </q-page-container>
-        <UploadModal :isInput="isInput" :closeModal="(isInput = false)"></UploadModal>
+        <!-- <UploadModal :isInput="isInput" v-on:closeModal="isInput = false"></UploadModal> -->
     </q-layout>
 </template>
 
@@ -32,7 +32,7 @@ export default defineComponent({
         const leftDrawerOpen = ref(false);
         const rightDrawerOpen = ref(false);
 
-        const isInput = ref(false);
+        // const isInput = ref(false);
 
         const handleResize = function (size) {
             $store.commit('comm/setPageSize', size);
@@ -53,7 +53,7 @@ export default defineComponent({
                 rightDrawerOpen.value = !rightDrawerOpen.value;
             },
 
-            isInput,
+            // isInput,
 
             handleResize,
             handleClickLogo,

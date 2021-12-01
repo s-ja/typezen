@@ -1,6 +1,7 @@
 <template>
-    <q-dialog v-model="isInput">
-        <q-card>
+    <q-dialog v-bind="isInput">
+        <input type="file" accept=".txt" />
+        <!-- <q-card>
             <q-card-section>
                 <div class="text-h6">Alert</div>
             </q-card-section>
@@ -12,7 +13,7 @@
             <q-card-actions align="right">
                 <q-btn flat label="OK" color="primary" v-close-popup />
             </q-card-actions>
-        </q-card>
+        </q-card> -->
     </q-dialog>
 </template>
 <script>
