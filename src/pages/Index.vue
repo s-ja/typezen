@@ -5,7 +5,7 @@
             <div class="menu-select" @click="handleClickType">Type</div>
             <div class="menu-select" type="file" accept="text/*">
                 <label for="cus-input-file">Upload</label>
-                <input id="cus-input-file" type="file" accept="text/*" v-show="false" />
+                <input id="cus-input-file" type="file" accept="text/*" v-show="false" @change="handleChangeInp" />
             </div>
         </div>
     </q-page>
@@ -48,9 +48,17 @@ export default defineComponent({
 
         const uploadDialog = ref(false);
 
+        const handleChangeInp = function (e) {
+            console.log(e.target.files);
+            if (e.target.files.length > 0) {
+                // e.target.files
+            }
+        };
+
         return {
             handleClickType,
             uploadDialog,
+            handleChangeInp,
         };
     },
 });
