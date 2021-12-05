@@ -12,6 +12,7 @@
                 <q-btn size="26px" round flat> <img src="assets/upload.png" style="height: 40px" /></q-btn>
             </q-page-sticky>
         </q-page-container>
+        <!-- <UploadModal :isInput="isInput" v-on:closeModal="isInput = false"></UploadModal> -->
     </q-layout>
 </template>
 
@@ -19,6 +20,8 @@
 import { defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+
+import UploadModal from 'components/UploadModal.vue';
 
 export default defineComponent({
     name: 'MainLayout',
@@ -28,6 +31,8 @@ export default defineComponent({
 
         const leftDrawerOpen = ref(false);
         const rightDrawerOpen = ref(false);
+
+        // const isInput = ref(false);
 
         const handleResize = function (size) {
             $store.commit('comm/setPageSize', size);
@@ -47,6 +52,8 @@ export default defineComponent({
             toggleRightDrawer() {
                 rightDrawerOpen.value = !rightDrawerOpen.value;
             },
+
+            // isInput,
 
             handleResize,
             handleClickLogo,
