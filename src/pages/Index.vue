@@ -51,6 +51,7 @@ export default defineComponent({
         const handleChangeInp = function (e) {
             console.log(e.target.files);
             if (e.target.files.length > 0) {
+                $router.push({ path: '/type', params: { file: e.target.files[0] } });
                 // e.target.files
             }
         };
