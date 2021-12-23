@@ -3,7 +3,7 @@
         <!-- <img alt="Quasar logo" src="~assets/quasar-logo-vertical.svg" style="width: 200px; height: 200px" /> -->
         <div>
             <div class="menu-select" @click="handleClickType">Type</div>
-            <div class="menu-select" type="file" accept="text/*">
+            <div class="menu-select">
                 <label for="cus-input-file">Upload</label>
                 <input id="cus-input-file" type="file" accept="text/*" v-show="false" @change="handleChangeInp" />
             </div>
@@ -37,7 +37,7 @@ export default defineComponent({
         const $router = useRouter();
 
         const handleClickType = function () {
-            $router.push('/type');
+            $router.push({ name: 'Type' });
         };
 
         // const
@@ -49,9 +49,18 @@ export default defineComponent({
         const uploadDialog = ref(false);
 
         const handleChangeInp = function (e) {
-            console.log(e.target.files);
+            console.log(e.target.files[0].name);
             if (e.target.files.length > 0) {
-                // e.target.files
+                try {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        console.log(e.target.result);
+                        $router.push({ name: 'Type', params: { content: e.target.result } });
+                    };
+                    const fileContent = reader.readAsText(e.target.files[0], 'utf-8');
+                } catch (e) {
+                    console.log(e);
+                }
             }
         };
 

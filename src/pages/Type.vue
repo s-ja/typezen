@@ -16,6 +16,7 @@
 <script>
 import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
 
 import _ from 'lodash';
 
@@ -29,9 +30,16 @@ export default {
     },
     setup() {
         const $store = useStore();
+        const $route = useRoute();
+        // const $router = useRouter();
 
         // 타이핑 할 문자 chunk 단위로 분리
         const content = ref(TextFile.text);
+        if ($route.params.content !== undefined) {
+            content.value = $route.params.content;
+            console.log('asfasdfasdf', $route.params);
+        }
+
         const paragraphList = ref([]);
         const chunkList = ref([]);
 
