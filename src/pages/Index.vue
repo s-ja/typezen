@@ -53,8 +53,9 @@ export default defineComponent({
             if (e.target.files.length > 0) {
                 try {
                     var reader = new FileReader();
-                    reader.onload = function () {
-                        $router.push({ name: 'Type', params: { content: fileContent } });
+                    reader.onload = function (e) {
+                        console.log(e.target.result);
+                        $router.push({ name: 'Type', params: { content: e.target.result } });
                     };
                     const fileContent = reader.readAsText(e.target.files[0], 'utf-8');
                 } catch (e) {

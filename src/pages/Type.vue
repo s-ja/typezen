@@ -37,6 +37,7 @@ export default {
         const content = ref(TextFile.text);
         if ($route.params.content !== undefined) {
             content.value = $route.params.content;
+            console.log('asfasdfasdf', $route.params);
         }
 
         const paragraphList = ref([]);
